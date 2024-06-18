@@ -7,14 +7,15 @@ console.log(3)
 console.log(4)
 console.log(5)
 
-const getTodo = (callback) => {
+const getTodo = (resource,callback) => {
     const request = new XMLHttpRequest();
     request.addEventListener('readystatechange',()=>{
         // console.log(request,request.readyState);
         try {
             if(request.readyState === 4 && request.status === 200){
                 // console.log(request.responseText);
-                callback(undefined,request.responseText);
+                const data = JSON.parse(request.responseText);
+                callback(undefined,data);
             }else if(request.readyState === 4){
                 // console.log('Could not find the data');
                 throw new Error("Undefined Error");
@@ -25,19 +26,35 @@ const getTodo = (callback) => {
         
     });
     
-    request.open('GET','https://jsonplaceholderd.typicode.com/todos');
+    request.open('GET',resource);
     request.send();
 }
 
 console.log('hello1');
 console.log('hello2');
 
-getTodo((err,data) => {
-    if(err){
-        console.log(err);
-    }else{
+getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
         console.log(data)
-    }
+        getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
+                console.log(data)
+                getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
+                        console.log(data)
+                });
+            });
 });
 
 console.log('hello3');
+
+//Fetch API
+
+fetch('https://jsonplaceholder.typicode.com/todos').then((result) => {
+    if(result.status == 200){
+        return result.json();
+    }
+}).then((data) => {
+    console.log(7)
+    console.log(data);
+}).catch((err)=>{
+    console.log(err);
+});
+

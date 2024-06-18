@@ -28,6 +28,8 @@ Lesson 3 - Make a request to API
 - Using XMLhttpRequest create a get request to the API and get the data from it.
 - Use try catch function for that
 - Using callback function to receive error or data
+- Introduction to fetch api which response the promises then using then method we can get the result.
+fetch().then(()=>{}).then(()=>{}).catch(()=>{});
 
 ========================================================
 
