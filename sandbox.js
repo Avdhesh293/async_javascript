@@ -33,28 +33,55 @@ const getTodo = (resource,callback) => {
 console.log('hello1');
 console.log('hello2');
 
-getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
-        console.log(data)
-        getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
-                console.log(data)
-                getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
-                        console.log(data)
-                });
-            });
-});
+// getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
+//         console.log(data)
+//         getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
+//                 console.log(data)
+//                 getTodo('https://jsonplaceholder.typicode.com/todos',(err,data) => {
+//                         console.log(data)
+//                 });
+//             });
+// });
 
 console.log('hello3');
 
 //Fetch API
 
-fetch('https://jsonplaceholder.typicode.com/todos').then((result) => {
-    if(result.status == 200){
-        return result.json();
-    }
-}).then((data) => {
-    console.log(7)
-    console.log(data);
-}).catch((err)=>{
-    console.log(err);
+// fetch('https://jsonplaceholder.typicode.com/todos').then((result) => {
+//     if(result.status == 200){
+//         return result.json();
+//     }
+// }).then((data) => {
+//     console.log(7)
+//     console.log(data);
+// }).catch((err)=>{
+//     console.log(err);
+// });
+
+// Promise
+
+const p = new Promise((response,reject) => {
+   return response('abc');
+    reject('cc');
 });
 
+// console.log(p);
+
+// Async
+
+const getTo = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+    // console.log(response);
+    if(response.status == 200){
+        const data = await response.json();
+        return data;
+    }else{
+        throw new Error('Cannot fetch data');
+    }
+}
+
+getTo().then((data) => {
+    console.log(data);
+}).catch(err => {
+    console.log(err.message)
+});
