@@ -7,13 +7,37 @@ console.log(3)
 console.log(4)
 console.log(5)
 
-const request = new XMLHttpRequest();
-request.addEventListener('readystatechange',()=>{
-    // console.log(request,request.readyState);
-    if(request.readyState === 4){
-        console.log(request.responseText);
+const getTodo = (callback) => {
+    const request = new XMLHttpRequest();
+    request.addEventListener('readystatechange',()=>{
+        // console.log(request,request.readyState);
+        try {
+            if(request.readyState === 4 && request.status === 200){
+                // console.log(request.responseText);
+                callback(undefined,request.responseText);
+            }else if(request.readyState === 4){
+                // console.log('Could not find the data');
+                throw new Error("Undefined Error");
+            }
+        } catch (error) {
+            callback(error,undefined);
+        }
+        
+    });
+    
+    request.open('GET','https://jsonplaceholderd.typicode.com/todos');
+    request.send();
+}
+
+console.log('hello1');
+console.log('hello2');
+
+getTodo((err,data) => {
+    if(err){
+        console.log(err);
+    }else{
+        console.log(data)
     }
 });
 
-request.open('GET','https://jsonplaceholder.typicode.com/todos');
-request.send();
+console.log('hello3');

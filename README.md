@@ -23,4 +23,11 @@ Lesson 2 - HTTP Request
 - XML request using the fake API from jsonplaceholder
 
 =======================================================
+Lesson 3 - Make a request to API
+
+- Using XMLhttpRequest create a get request to the API and get the data from it.
+- Use try catch function for that
+- Using callback function to receive error or data
+
+========================================================
 
